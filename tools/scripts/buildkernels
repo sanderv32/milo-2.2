@@ -1,0 +1,62 @@
+#!/bin/bash
+
+LINUX=/usr/src/linux
+KOUT=$(dirname `pwd`)/linux
+
+set -e
+
+for i in	"Avanti		AVANTI"		\
+		"Alpha-XL	XL"		\
+		"Alpha-XLT	XLT"		\
+		"Cabriolet	CABRIOLET"	\
+		"EB66		EB66"		\
+		"EB66+		EB66P"		\
+		"EB64+		EB64P"		\
+		"EB164		EB164"		\
+		"PC164		PC164"		\
+		"LX164		LX164"		\
+		"SX164		SX164"		\
+		"Noname		NONAME"		\
+		"Takara		TAKARA"		\
+		"Mikasa		MIKASA"		\
+		"Alcor		ALCOR"		\
+		"Miata		MIATA"		\
+		"Ruffian	RUFFIAN"	\
+		"AlphaBook1	BOOK1"		\
+		"Platform2000	P2K"
+do
+	p=($i)
+	KSRC=$KOUT/${p[0]}
+	if [ -f $KSRC/arch/alpha/boot/tools/objstrip ]
+	then continue
+	fi
+
+	sed -e 1,\$s/^#\ \\\(CONFIG_ALPHA_${p[1]}\\\)\ is\ not.\*\$/\\\1=y/ \
+	    -e 1,\$s/^#\ \\\(CONFIG_ALPHA_${p[2]}\\\)\ is\ not.\*\$/\\\1=y/ \
+		tools/scripts/defconfig.milo > $LINUX/.config
+	pushd $LINUX
+	make oldconfig
+	make dep
+	make clean
+	make boot
+
+	mkdir -p $KSRC/include $KSRC/arch/alpha/{lib,kernel,boot/tools}
+	mkdir -p $KSRC/{lib,kernel,init} $KSRC/drivers/{pci,block,scsi}
+	cp -r include/linux $KSRC/include
+	ln -s $LINUX/include/{asm,scsi} $KSRC/include
+	ln -s $LINUX/drivers/scsi/scsi.h $KSRC/drivers/scsi
+	cp .config $KSRC
+	cp lib/lib.a $KSRC/lib
+	cp arch/alpha/lib/lib.a $KSRC/arch/alpha/lib
+	cp kernel/{softirq,resource}.o $KSRC/kernel
+	cp arch/alpha/kernel/*.o $KSRC/arch/alpha/kernel
+	cp init/version.o $KSRC/init
+	cp drivers/pci/pci.a $KSRC/drivers/pci
+	cp drivers/block/block.a $KSRC/drivers/block
+	cp drivers/scsi/scsi.a $KSRC/drivers/scsi
+	if ! [ -x $KOUT/../objstrip ]; then
+		cp $LINUX/arch/alpha/boot/tools/objstrip $KOUT/..
+	fi
+	ln -s ../../../../../../objstrip $KSRC/arch/alpha/boot/tools
+	popd
+done

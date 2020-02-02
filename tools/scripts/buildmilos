@@ -1,0 +1,21 @@
+#!/bin/bash
+
+INSTALLDIR=/home/ftp/pub/alpha/milo/milo-`date +%y%m%d`
+
+KBASE=$(dirname `pwd`)/linux
+
+set -e
+
+mkdir -p $INSTALLDIR
+
+for KSRC in $KBASE/*
+do
+	INSTTGT=$INSTALLDIR/`basename $KSRC`
+	if [ -f $INSTTGT ]
+	then continue
+	fi
+	make KSRC=$KSRC clean
+	make KSRC=$KSRC oldconfig
+	make KSRC=$KSRC subdirs milo
+	mv milo $INSTTGT
+done

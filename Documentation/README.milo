@@ -1,0 +1,67 @@
+This is the Milo 2.2 release
+
+ What is MILO?
+
+   On Intel based PC systems, the BIOS firmware sets up the system and
+   then loads the image to be run from the boot block of a DOS file
+   system.  This is more or less what MILO does on an Alpha based system,
+   however there are several interesting differences between BIOS
+   firmware and MILO, not least of which is that MILO includes and uses
+   standard Linux device drivers unmodified.  MILO is firmware, unlike
+   LILO, which relies on the BIOS firmware to get itself loaded.
+
+ About this release
+
+   This version is based on the Milo-2.0.35-c7b sources of Nikita
+   Schmidt , which are available on ftp://genie.ucd.ie/pub/alpha/milo/
+   Since major changes were necessary, I won't release a patchfile to the
+   old 2.0 based MILO versions.
+
+   NOTE: Nikitas Milo 2.0 releases are much better tested. If you 
+   run a production machine, it might be wiser to use the "older"
+   Milo 2.0. Be prepared for some (minor) glitches when using this 
+   version. 
+   Please send me any positive or negative test reports since I can 
+   currently only test on a Ruffian (ev56).
+
+   This is not really a generic milo, but it doesn't need a platform
+   specific kernel anymore. (Building for non-generic kernels is untested
+   and maybe needs a little fixing.)
+
+ To compile it:
+
+    * you have to build a generic kernel
+	NOTE: Please look at the kernel's .config file in
+	milo-2.2/Documentation/config/Linux-* to get a working
+	config. DO NOT compile modules or sysctl support in.
+
+    * and then a specific Milo.
+
+   Please note: These sources are currently working/tested on Ruffian,
+   LX164, Avanti. It is untested on most other platforms.
+
+   To compile a complete set of milos for all platforms, you can use
+   the build script tools/scripts/build.
+
+ Software Requirements:
+
+   * Kernel 2.2.x. You should use at least a 2.2.14 Kernel.
+     I used 2.2.15pre14.
+   * binutils: Should work with any recent binutils. I used 2.9.5.0.16
+   * Compiler: egcs 1.1.2. Note: gcc 2.95 seems to have problems with
+     plain 2.2.14 and newer. Other compilers are untested.
+
+   The URL to get the current release of the MILO sources is:
+              http://www.suse.de/~stepan/
+
+   Have fun and please send me thousands of comments....
+
+   Many thanks to Ruediger Oertel, Nikita Schmidt and Jay
+   Estabrook for their never ending help :)
+
+   Thanks to Thorsten Kranzkowski and Nikolaos Ntarmos for intensive
+   testing and bug reports.
+
+   Regards,
+       Stefan Reinauer, <stepan@suse.de>
+

@@ -1,0 +1,87 @@
+.TH miloctl 8
+.SH NAME
+miloctl \- MILO control tool
+.SH SYNOPSIS
+.B miloctl
+.RB [\| \-v \||\| \-\-verbose \|]
+.I MILO
+[\|\fBcmd=\fICMD\fR\|] [\|\fBmem=\fIMEM\fR\|] [\|\fB+\fR|\fB\-\fIFLAG\fR\|]...
+.br
+.B miloctl
+.RB [\| \-h \||\| \-\-help \||\| \-\-version \|]
+.br
+The order of command-line arguments is not significant.
+.SH DESCRIPTION
+.B Miloctl
+controls MILO's behaviour through the parameter block that resides inside
+the MILO image file.  Three parameters can be set up:
+.IR "startup command" ,
+.IR "memory size" ,
+and
+.IR flags .
+
+The
+.I startup command
+is executed after initialisation, as soon as MILO is about to display its
+command prompt.  One second is given to abort the command in case something
+has gone wrong with it.  The command can also be overridden from the ARC or
+AlphaBIOS console (through OsLoadOptions).  The typical startup command may be
+something like
+.BR "boot sda2:" ,
+to make MILO read /etc/milo.conf from sda2.
+
+The
+.I memory size
+parameter lets you override MILO's impression of the system's memory size.  It
+is not normally needed, because in most cases MILO correctly finds the size
+passed from ARC or SRM.
+
+.I Flags
+exist mostly for debugging purposes.  There are two flags you can set
+(which are by default off).  The first one,
+.BR SERIAL_OUTPUT ,
+tells MILO to peform output to the serial port during start-up.  The second one,
+.BR VERBOSE ,
+increases MILO's verbosity (same as the
+.B VERBOSE
+variable; the flag is introduced because it may otherwise be impossible to set
+VERBOSE before the command prompt appears).
+.SH ARGUMENTS
+.TP
+.B MILO
+The MILO image file.  It can be either a plain MILO image, or an SRM boot
+block
+.RB ( miloctl
+would then automatically locate the actual image).  Note that
+the changes are only made to that file, not to the in-memory image.
+.TP
+.BI cmd= CMD
+Set the startup command to
+.IR CMD .
+.TP
+.BI mem= MEM
+Set the memory size to
+.I MEM
+megabytes.
+.TP
+.BI + FLAG,\  \- FLAG
+Set or clear
+.IR FLAG ,
+which can be specified either by its full name (case insensitive), or,
+alternatively, by
+.B S
+or
+.B V
+capital (for SERIAL_OUTPUT and VERBOSE, respectively).
+.SH OPTIONS
+.TP
+.B \-v, \-\-verbose
+Describe the changes being made.
+.TP
+.B \-h, \-\-help
+Display the usage information.
+.TP
+.B \-\-version
+Display the version of miloctl.
+.SH AUTHOR
+Nikita Schmidt <cetus@snowball.ucd.ie>

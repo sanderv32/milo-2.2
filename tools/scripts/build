@@ -1,0 +1,42 @@
+#!/bin/bash
+set -e
+
+RELEASE=2.2-16
+
+for i in \
+	"Alpha-XLT	XLT"		\
+	"Alpha-XL	XL"		\
+	"AlphaBook1	BOOK1"		\
+	"Avanti		AVANTI"		\
+	"Cabriolet	CABRIOLET"	\
+	"EB66		EB66"		\
+	"EB66+		EB66P"		\
+	"EB64+		EB64P"		\
+	"EB164		EB164"		\
+	"PC164		PC164"		\
+	"LX164		LX164"		\
+	"SX164		SX164"		\
+	"Noname		NONAME"		\
+	"Takara		TAKARA"		\
+	"Mikasa		MIKASA"		\
+	"Alcor		ALCOR"		\
+	"Miata		MIATA"		\
+	"Ruffian	RUFFIAN"	\
+	"Platform2000	P2K"
+do
+	p=($i)
+
+	sed -e 1,\$s/^#\ \\\(MINI_ALPHA_${p[1]}\\\)\ is\ not.\*\$/\\\1=y/ \
+	    -e 1,\$s/^#\ \\\(MINI_ALPHA_${p[2]}\\\)\ is\ not.\*\$/\\\1=y/ \
+		Documentation/defconfig.milo > .config
+	make clean
+	make oldconfig
+	make 
+	miloname=`echo milo-$RELEASE-${p[1]}|tr "A-Z" "a-z"`
+	fmuname=`echo fmu-$RELEASE-${p[1]}.gz|tr "A-Z" "a-z"`
+	cp milo binaries/$miloname
+	if [ -f fmu.gz ]
+	then
+		cp fmu.gz binaries/$fmuname
+	fi
+done

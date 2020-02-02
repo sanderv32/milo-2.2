@@ -1,0 +1,90 @@
+*** 00/03/12 *** stepan@suse.de ***********************************************
+
+  * threw out new x86emu stuff temporarily and put in old but fixed x86
+    emulation.
+
+*** 00/03/07 *** stepan@suse.de ***********************************************
+
+  * initrd changes
+  * fmu builds again
+  * worked on v86bios vga emulation
+  * code cleanup
+
+*** 00/03/03 *** stepan@suse.de ***********************************************
+
+  * got rid of $(KSRC)/fs/* dependencies (reduced size)
+  * got rid of console.c
+
+*** 00/03/02 *** stepan@suse.de ***********************************************
+
+  * Rearranged Makefile to make it readable again.
+  * included Nikitas c7b patches, compiles with new binutils now.
+    (PALcode is built as ELF now)
+  * Compile with -mev5 to make milo-2.2 work on pre-ev56 alphas.
+  * Added dummy-directory kernel/ which should contain small machine
+    vector dummies to build smaller specific milos against generic
+    kernels. (Should be put ifdef CONFIG_ALPHA_GENERIC)
+  * got rid of some kernel dependencies.
+  * Builds cleanly against 2.2.14 and 2.2.15pre kernels.
+  * only have alpha_use_srm stuff, when compiling against ag generic
+    kernel.
+
+*** 99/12/02 *** stepan@suse.de ***********************************************
+
+  * Fixed kernel.c to compile with IDE drivers again :o)
+  * told milo.c about optimization of Intel 82371SB ISA bridge
+  * compile fixes to add support for the following platforms:
+    * LX164
+    * PC164
+    * EB64+
+    * EB66
+    * EB66+
+    * Avanti
+    * Plattform2000
+    * Noname
+    * XL
+    * AlphaBOOK 1
+
+*** 99/11/29 *** stepan@suse.de ***********************************************
+
+  * Minor compile fixes. The following targets are at least compiling cleanly:
+    * Alcor/XLT
+    * Cabriolet
+    * EB164
+    * Miata
+    * Mikasa
+    * Ruffian (tested/working)
+    * SX164
+    * Takara
+
+*** 99/11/29 *** stepan@suse.de ***********************************************
+
+  * Updated Configure Script (from linux-2.2.13)
+  * Added machine choice to config.
+  * moved text stuff to Documentation/ directory.
+  * got rid of some kernel object files
+
+*** 99/11/28 *** stepan@suse.de ***********************************************
+
+  * reordered and rewrote most of the Makefiles
+  * added dumbirq.c to add missing dummy symbols for relocate and stub
+    stage. This allows compiling against a generic kernel.
+
+*** 99/11/25 *** stepan@suse.de ***********************************************
+
+  * fixed dma_request()
+  * dropped a.out/osf-ecoff stuff from boot.c (kernel is always ELF)
+  * seperated and disabled alpha_machine_vector handling in machvecs.c
+
+*** 99/11/23 *** stepan@suse.de ***********************************************
+
+  * included patches from Nikitas version c5.3 to c7
+  * merged smc93x.c into smc.c again.
+  * milo compiles against linux-2.2.13-SuSE now.
+  * seperated ___delay() in head.S
+  * this distribution includes standard .config files for Linux and MILO.
+  * renamed boot_main.c to boot.c and stub_main.c to stub.c
+  * code cleanup in devices.c, milo.c
+
+*******************************************************************************
+

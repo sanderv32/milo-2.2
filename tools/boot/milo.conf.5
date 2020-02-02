@@ -1,0 +1,84 @@
+.TH milo.conf 5
+.SH NAME
+/etc/milo.conf \- MILO configuration file
+.SH DESCRIPTION
+MILO reads this file when it is given a
+.BI boot\  dev :
+command, where
+.I dev
+specifies the device and partition where /etc/milo.conf resides, e.g.
+.BR sda2 .
+
+.B milo.conf
+consists of
+.I keyword
+=
+.I value
+statements and may also contain empty lines and #-style comments.
+.I Value
+may be enclosed in double quotes, which are necessary if
+.I value
+contains space(s).
+
+The file is structurally sub-divided into a common part and several
+per-image parts.  Each per-image part starts with an
+.B image
+statement.  Common part is everything preceding the first
+.B image
+statement.
+.SH "COMMON PART KEYWORDS"
+.TP
+.BI timeout\ = \ timeout
+Instruct MILO to boot the first image specified in
+.BR /etc/milo.conf,
+giving the user
+.IR timeout /10
+seconds to interrupt.  A zero value means the default behaviour (no time
+limit).
+.TP
+.BI command\ = \ MILO_command
+Execute
+.I MILO_command
+when
+.B /etc/milo.conf
+is read.  A typical example may be
+.ce 1
+\fBcommand = "set MEMORY_SIZE 224"\fR
+This statement is cumulative: several commands may be given, and their order
+will be preserved.
+.SH "PER-IMAGE KEYWORDS"
+.TP
+.BR image\ = \ [\|\fIdev : \|]\|\fIfile
+.I File
+is the Linux kernel image file name.  If
+.IB dev :
+is omitted, same device and partition are used as those for
+.BR /etc/milo.conf .
+.TP
+.BI device\ = \ dev :
+An alternative way to specify the device where the kernel image resides.
+.TP
+.BI label\ = \ boot_label
+The name for this boot selection (case sensitive).
+.TP
+.BI root\ = \ root_device
+The name (in normal Linux notation, e.g.
+.BR /dev/sda5 )
+of the device where the root filesystem should be mounted.
+.TP
+.BI append\ = \ kernel_arguments
+Any remaining kernel arguments that you wish to be appended to the (implicit)
+.B boot
+command line.  Note that you can, for example, put
+.BI root= root_device
+into
+.I kernel_arguments
+instead of using the
+.B root
+statement.
+.TP
+.BI command\ = \ MILO_command
+A per-image version of the common-part
+.B command
+statement.  It is also cumulative and the commands are executed just before
+booting the selected image.

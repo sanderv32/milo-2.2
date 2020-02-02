@@ -1,0 +1,28 @@
+#
+# Configuration help file for MILO 2.2
+# Stefan Reinauer, <stepan@suse.de>
+# 
+Path to kernel sources
+KSRC
+  This needs to be set to a valid path to a configured and compiled
+  Linux kernel v2.2. 
+  
+  If you want to compile MILO, you have to set this correctly.
+
+Echo output to the serial port
+MINI_SERIAL_ECHO
+  If this option is enabled, MILO prints it's output to a serial console.
+  NOTE: This doesn't affect your video hardware.
+
+Serial Port
+SERIAL_PORT
+  Specify the serial port that should get all MILO output. 
+  
+  Default is 1
+
+Serial Speed
+SERIAL_SPEED
+  Specify output speed for serial console. 
+  
+  Default is 9600
+

@@ -1,0 +1,5 @@
+
+* test and fix initrd support
+* fix strange boot hangs with 2.2.14+
+* convert v86bios stuff to kernel space
+

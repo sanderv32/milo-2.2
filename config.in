@@ -1,0 +1,140 @@
+#
+# For a description of the syntax of this configuration file,
+# see the Configure script.
+#
+
+comment 'Alpha Linux Miniloader setup'
+#
+string 'Path to kernel sources' KSRC /usr/src/linux
+choice 'Alpha system type' \
+	"Alpha-XLT		MINI_ALPHA_XLT			\
+	 Alpha-XL		MINI_ALPHA_XL			\
+	 AlphaBook1		MINI_ALPHA_BOOK1		\
+	 Avanti			MINI_ALPHA_AVANTI		\
+	 Cabriolet		MINI_ALPHA_CABRIOLET		\
+	 EB66			MINI_ALPHA_EB66			\
+	 EB66+			MINI_ALPHA_EB66P		\
+	 EB64+			MINI_ALPHA_EB64P		\
+	 EB164			MINI_ALPHA_EB164		\
+	 PC164			MINI_ALPHA_PC164		\
+	 LX164			MINI_ALPHA_LX164		\
+	 SX164			MINI_ALPHA_SX164		\
+	 Noname			MINI_ALPHA_NONAME		\
+	 Takara			MINI_ALPHA_TAKARA		\
+	 Mikasa			MINI_ALPHA_MIKASA		\
+	 Alcor			MINI_ALPHA_ALCOR		\
+	 Miata			MINI_ALPHA_MIATA		\
+	 Ruffian		MINI_ALPHA_RUFFIAN		\
+	 Platform2000		MINI_ALPHA_P2K			"
+
+# clear all implied options (don't want default values for those):
+unset MINI_ALPHA_EV4 MINI_ALPHA_EV5 MINI_ALPHA_EV6
+unset MINI_ALPHA_LCA MINI_ALPHA_APECS MINI_ALPHA_CIA
+unset MINI_ALPHA_T2 MINI_ALPHA_PYXIS MINI_ALPHA_POLARIS
+unset MINI_ALPHA_TSUNAMI MINI_ALPHA_MCPCIA
+
+if [ "$MINI_ALPHA_BOOK1" = "y" ]
+then
+	define_bool MINI_ALPHA_NONAME y
+fi
+if [ "$MINI_ALPHA_NONAME" = "y" -o "$MINI_ALPHA_EB66" = "y" \
+	-o "$MINI_ALPHA_EB66P" = "y" -o "$MINI_ALPHA_P2K" = "y" ]
+then
+	define_bool MINI_ALPHA_EV4 y
+	define_bool MINI_ALPHA_LCA y
+fi
+if [ "$MINI_ALPHA_CABRIOLET" = "y" -o "$MINI_ALPHA_AVANTI" = "y" \
+	-o "$MINI_ALPHA_EB64P" = "y" -o "$MINI_ALPHA_XL" = "y" ]
+then
+	define_bool MINI_ALPHA_EV4 y
+	define_bool MINI_ALPHA_APECS y
+fi
+if [ "$MINI_ALPHA_EB164" = "y" -o "$MINI_ALPHA_PC164" = "y" \
+	-o "$MINI_ALPHA_ALCOR" = "y" -o "$MINI_ALPHA_XLT" = "y" \
+	-o "$MINI_ALPHA_TAKARA" = "y" ]
+then
+	define_bool MINI_ALPHA_EV5 y
+	define_bool MINI_ALPHA_CIA y
+fi
+
+if [ "$MINI_ALPHA_MIKASA" = "y" -o "$MINI_ALPHA_NORITAKE" = "y" ]
+then
+#	bool 'EV5 CPU daughtercard (model 5/xxx)?' MINI_ALPHA_PRIMO
+	define_bool MINI_ALPHA_PRIMO n
+	if [ "$MINI_ALPHA_PRIMO" = "y" ]
+	then
+		define_bool MINI_ALPHA_EV5 y
+		define_bool MINI_ALPHA_CIA y
+	else
+		define_bool MINI_ALPHA_EV4 y
+		define_bool MINI_ALPHA_APECS y
+	fi
+	define_bool CONFIG_PCI y
+fi
+if [ "$MINI_ALPHA_MIATA" = "y" -o "$MINI_ALPHA_LX164" = "y" \
+	-o "$MINI_ALPHA_SX164" = "y" -o "$MINI_ALPHA_RUFFIAN" = "y" ]
+then
+	define_bool MINI_ALPHA_EV5 y
+	define_bool MINI_ALPHA_PYXIS y
+fi
+
+if [ "$MINI_ALPHA_DP264" = "y" -o "$MINI_ALPHA_EIGER" = "y" ]
+then
+	define_bool MINI_ALPHA_EV6 y
+	define_bool MINI_ALPHA_TSUNAMI y
+fi
+
+if [ "$MINI_ALPHA_XL" = "y" ]
+then
+	define_bool MINI_ALPHA_AVANTI y
+fi
+
+bool 'Echo output to the serial port' MINI_SERIAL_ECHO y
+if [ $MINI_SERIAL_ECHO = 'y' ]; then
+    int '    Serial port (1 or 2)' SERIAL_PORT 1
+    int '    Serial line speed (from 150 up to 56000)' SERIAL_SPEED 9600
+    bool '    Use only serial I/O (?)' MINI_SERIAL_IO n
+fi
+bool "Use Digital's BIOS emulation code (not free)" MINI_DIGITAL_BIOSEMU n
+bool 'Use free x86 BIOS emulation code' MINI_FREE_BIOSEMU n
+bool 'Use raw vga overrides (useful for BIOS problems)' MINI_VGA_RAW y
+bool 'Use alternative raw vga initialisation' MINI_VGA_RAW2 n
+bool 'Enable TGA support' MINI_TGA_CONSOLE n
+bool 'Use external font' MINI_EXTERNAL_FONT y
+if [ $MINI_EXTERNAL_FONT = 'y' ]; then
+    string 'Font file name' MINI_FONT_FILE /usr/lib/kbd/consolefonts/def2_8x16.gz
+#    string 'Font file name' MINI_FONT_FILE /usr/lib/kbd/consolefonts/t
+    if ! ls -l $MINI_FONT_FILE | egrep -q '4096|\.gz'; then
+	echo "Warning: this file name may be incorrect; the file must be a"
+	echo "(possibly compressed) binary image of an 8x16 VGA or TGA font (size 4096)."
+    fi
+fi
+bool 'Build PALcode from sources' MINI_BUILD_PALCODE_FROM_SOURCES y
+bool 'Setup devices on startup' AUTO_DEVICE_SETUP n
+string 'Startup device' MILO_BOOT_DEV sdb1
+bool 'Enable reboot command' DEBUG_MILO n
+bool 'Enable output pager' MILO_PAGER y
+bool 'Follow symlink dirs' MILO_SYMLINK_DIRS y
+bool 'Reuse freed memory' REUSE_MEMORY n
+
+comment 'Debug settings'
+
+bool 'Define debug settings' DEBUG_SETTINGS n
+
+if [ $DEBUG_SETTINGS = 'y' ]; then
+    bool 'Debug malloc' DEBUG_MALLOC n
+    bool 'Separate malloced memory by guard bands' GUARD_BANDS y
+    bool 'Warn if running code that should never be reached' NEVER n
+    bool 'Enable evaluation board minidebugger' DEBUG_USE_DBM n
+    bool 'Debug booting' DEBUG_BOOT n
+    bool 'Debug devices' DEBUG_DEVICES n
+    bool 'Debug timer' DEBUG_TIMER n
+    bool 'Debug stub code' DEBUG_STUB n
+    bool 'Debug proc code' DEBUG_PROC n
+    bool 'Debug kernel dummies' DEBUG_KERNEL n
+    bool 'Debug relocate code' DEBUG_RELOCATE n
+
+    bool 'Extended 2' DEBUG_EXT2 n
+    bool 'MSDOS' DEBUG_MSDOS n
+    bool 'ISO9660' DEBUG_ISOFS n
+fi

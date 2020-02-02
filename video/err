@@ -1,0 +1,277 @@
+gcc -Wall -Wstrict-prototypes -O2 -fomit-frame-pointer -pipe -mno-fp-regs -ffixed-8  -Wa,-mev6 -D__KERNEL__ -D__linux__ -mcpu=ev5 -fno-strict-aliasing  -I. -I..  -I/usr/src/milo-2.2/kernel/2.2.15pre13/include -Ix86emu  -c -o freebiosvga.o freebiosvga.c
+In file included from x86emu/x86emu.h:50,
+                 from freebiosvga.c:42:
+x86emu/x86emu/types.h:71: parse error before `X86EMU_pioAddr'
+x86emu/x86emu/types.h:71: warning: type defaults to `int' in declaration of `X86EMU_pioAddr'
+x86emu/x86emu/types.h:71: warning: data definition has no type or storage class
+In file included from x86emu/x86emu.h:54,
+                 from freebiosvga.c:42:
+x86emu/x86emu/regs.h:78: parse error before `u32'
+x86emu/x86emu/regs.h:78: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:79: warning: type defaults to `int' in declaration of `I32_reg_t'
+x86emu/x86emu/regs.h:79: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:82: parse error before `u16'
+x86emu/x86emu/regs.h:82: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:83: warning: type defaults to `int' in declaration of `I16_reg_t'
+x86emu/x86emu/regs.h:83: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:86: parse error before `u8'
+x86emu/x86emu/regs.h:86: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:87: warning: type defaults to `int' in declaration of `I8_reg_t'
+x86emu/x86emu/regs.h:87: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:92: parse error before `I32_reg_t'
+x86emu/x86emu/regs.h:92: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:93: warning: type defaults to `int' in declaration of `I16_reg'
+x86emu/x86emu/regs.h:93: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:94: parse error before `I8_reg'
+x86emu/x86emu/regs.h:94: warning: type defaults to `int' in declaration of `I8_reg'
+x86emu/x86emu/regs.h:94: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:95: warning: type defaults to `int' in declaration of `i386_general_register'
+x86emu/x86emu/regs.h:95: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:98: parse error before `i386_general_register'
+x86emu/x86emu/regs.h:98: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:104: parse error before `i386_general_register'
+x86emu/x86emu/regs.h:104: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:105: warning: type defaults to `int' in declaration of `FLAGS'
+x86emu/x86emu/regs.h:105: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:114: parse error before `u16'
+x86emu/x86emu/regs.h:114: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:259: field `gen' has incomplete type
+x86emu/x86emu/regs.h:260: field `spc' has incomplete type
+x86emu/x86emu/regs.h:261: field `seg' has incomplete type
+x86emu/x86emu/regs.h:275: parse error before `u8'
+x86emu/x86emu/regs.h:275: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:287: parse error before `}'
+x86emu/x86emu/regs.h:287: warning: type defaults to `int' in declaration of `X86EMU_regs'
+x86emu/x86emu/regs.h:287: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:299: parse error before `X86EMU_regs'
+x86emu/x86emu/regs.h:299: warning: no semicolon at end of struct or union
+x86emu/x86emu/regs.h:303: parse error before `}'
+x86emu/x86emu/regs.h:303: warning: type defaults to `int' in declaration of `X86EMU_sysEnv'
+x86emu/x86emu/regs.h:303: warning: data definition has no type or storage class
+x86emu/x86emu/regs.h:318: parse error before `_X86EMU_env'
+x86emu/x86emu/regs.h:318: warning: type defaults to `int' in declaration of `_X86EMU_env'
+x86emu/x86emu/regs.h:318: warning: data definition has no type or storage class
+In file included from freebiosvga.c:42:
+x86emu/x86emu.h:82: parse error before `u8'
+x86emu/x86emu.h:82: warning: no semicolon at end of struct or union
+x86emu/x86emu.h:83: parse error before `*'
+x86emu/x86emu.h:83: parse error before `addr'
+x86emu/x86emu.h:83: warning: type defaults to `int' in declaration of `u16'
+x86emu/x86emu.h:83: warning: function declaration isn't a prototype
+x86emu/x86emu.h:83: `u16' declared as function returning a function
+x86emu/x86emu.h:83: warning: function declaration isn't a prototype
+x86emu/x86emu.h:83: warning: data definition has no type or storage class
+x86emu/x86emu.h:84: parse error before `*'
+x86emu/x86emu.h:84: parse error before `addr'
+x86emu/x86emu.h:84: warning: type defaults to `int' in declaration of `u32'
+x86emu/x86emu.h:84: warning: function declaration isn't a prototype
+x86emu/x86emu.h:84: `u32' declared as function returning a function
+x86emu/x86emu.h:84: warning: function declaration isn't a prototype
+x86emu/x86emu.h:84: warning: data definition has no type or storage class
+x86emu/x86emu.h:85: parse error before `addr'
+x86emu/x86emu.h:85: warning: function declaration isn't a prototype
+x86emu/x86emu.h:86: parse error before `addr'
+x86emu/x86emu.h:86: warning: function declaration isn't a prototype
+x86emu/x86emu.h:87: parse error before `addr'
+x86emu/x86emu.h:87: warning: function declaration isn't a prototype
+x86emu/x86emu.h:88: warning: type defaults to `int' in declaration of `X86EMU_pioFuncs'
+x86emu/x86emu.h:88: warning: data definition has no type or storage class
+x86emu/x86emu.h:113: parse error before `u8'
+x86emu/x86emu.h:113: warning: no semicolon at end of struct or union
+x86emu/x86emu.h:114: parse error before `*'
+x86emu/x86emu.h:114: parse error before `addr'
+x86emu/x86emu.h:114: warning: type defaults to `int' in declaration of `u16'
+x86emu/x86emu.h:114: warning: function declaration isn't a prototype
+x86emu/x86emu.h:114: `u16' declared as function returning a function
+x86emu/x86emu.h:114: warning: function declaration isn't a prototype
+x86emu/x86emu.h:114: warning: data definition has no type or storage class
+x86emu/x86emu.h:115: parse error before `*'
+x86emu/x86emu.h:115: parse error before `addr'
+x86emu/x86emu.h:115: warning: type defaults to `int' in declaration of `u32'
+x86emu/x86emu.h:115: warning: function declaration isn't a prototype
+x86emu/x86emu.h:115: `u32' declared as function returning a function
+x86emu/x86emu.h:115: warning: function declaration isn't a prototype
+x86emu/x86emu.h:115: warning: data definition has no type or storage class
+x86emu/x86emu.h:116: parse error before `addr'
+x86emu/x86emu.h:116: warning: function declaration isn't a prototype
+x86emu/x86emu.h:117: parse error before `addr'
+x86emu/x86emu.h:117: warning: function declaration isn't a prototype
+x86emu/x86emu.h:118: parse error before `addr'
+x86emu/x86emu.h:118: warning: function declaration isn't a prototype
+x86emu/x86emu.h:119: warning: type defaults to `int' in declaration of `X86EMU_memFuncs'
+x86emu/x86emu.h:119: warning: data definition has no type or storage class
+x86emu/x86emu.h:125: parse error before `rdb'
+x86emu/x86emu.h:125: parse error before `addr'
+x86emu/x86emu.h:125: warning: type defaults to `int' in declaration of `rdb'
+x86emu/x86emu.h:125: warning: function declaration isn't a prototype
+x86emu/x86emu.h:125: warning: data definition has no type or storage class
+x86emu/x86emu.h:126: parse error before `rdw'
+x86emu/x86emu.h:126: parse error before `addr'
+x86emu/x86emu.h:126: warning: type defaults to `int' in declaration of `rdw'
+x86emu/x86emu.h:126: warning: function declaration isn't a prototype
+x86emu/x86emu.h:126: warning: data definition has no type or storage class
+x86emu/x86emu.h:127: parse error before `rdl'
+x86emu/x86emu.h:127: parse error before `addr'
+x86emu/x86emu.h:127: warning: type defaults to `int' in declaration of `rdl'
+x86emu/x86emu.h:127: warning: function declaration isn't a prototype
+x86emu/x86emu.h:127: warning: data definition has no type or storage class
+x86emu/x86emu.h:128: parse error before `addr'
+x86emu/x86emu.h:128: warning: function declaration isn't a prototype
+x86emu/x86emu.h:128: `wrb' redeclared as different kind of symbol
+x86emu/x86emu.h:116: previous declaration of `wrb'
+x86emu/x86emu.h:129: parse error before `addr'
+x86emu/x86emu.h:129: warning: function declaration isn't a prototype
+x86emu/x86emu.h:129: `wrw' redeclared as different kind of symbol
+x86emu/x86emu.h:117: previous declaration of `wrw'
+x86emu/x86emu.h:130: parse error before `addr'
+x86emu/x86emu.h:130: warning: function declaration isn't a prototype
+x86emu/x86emu.h:130: `wrl' redeclared as different kind of symbol
+x86emu/x86emu.h:118: previous declaration of `wrl'
+x86emu/x86emu.h:145: parse error before `*'
+x86emu/x86emu.h:145: warning: function declaration isn't a prototype
+x86emu/x86emu.h:146: parse error before `*'
+x86emu/x86emu.h:146: warning: function declaration isn't a prototype
+x86emu/x86emu.h:185: parse error before `seg'
+x86emu/x86emu.h:185: warning: function declaration isn't a prototype
+In file included from freebiosvga.c:43:
+x86emu/x86emu/debug.h:199: parse error before `iv'
+x86emu/x86emu/debug.h:199: warning: function declaration isn't a prototype
+x86emu/x86emu/debug.h:203: parse error before `p'
+x86emu/x86emu/debug.h:203: warning: function declaration isn't a prototype
+x86emu/x86emu/debug.h:204: parse error before `s'
+x86emu/x86emu/debug.h:204: warning: function declaration isn't a prototype
+In file included from freebiosvga.c:44:
+x86emu/x86emu/decode.h:58: parse error before `type'
+x86emu/x86emu/decode.h:58: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:60: parse error before `fetch_byte_imm'
+x86emu/x86emu/decode.h:60: warning: type defaults to `int' in declaration of `fetch_byte_imm'
+x86emu/x86emu/decode.h:60: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:61: parse error before `fetch_word_imm'
+x86emu/x86emu/decode.h:61: warning: type defaults to `int' in declaration of `fetch_word_imm'
+x86emu/x86emu/decode.h:61: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:62: parse error before `fetch_long_imm'
+x86emu/x86emu/decode.h:62: warning: type defaults to `int' in declaration of `fetch_long_imm'
+x86emu/x86emu/decode.h:62: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:63: parse error before `fetch_data_byte'
+x86emu/x86emu/decode.h:63: parse error before `offset'
+x86emu/x86emu/decode.h:63: warning: type defaults to `int' in declaration of `fetch_data_byte'
+x86emu/x86emu/decode.h:63: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:63: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:64: parse error before `fetch_data_byte_abs'
+x86emu/x86emu/decode.h:64: parse error before `segment'
+x86emu/x86emu/decode.h:64: warning: type defaults to `int' in declaration of `fetch_data_byte_abs'
+x86emu/x86emu/decode.h:64: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:64: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:65: parse error before `fetch_data_word'
+x86emu/x86emu/decode.h:65: parse error before `offset'
+x86emu/x86emu/decode.h:65: warning: type defaults to `int' in declaration of `fetch_data_word'
+x86emu/x86emu/decode.h:65: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:65: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:66: parse error before `fetch_data_word_abs'
+x86emu/x86emu/decode.h:66: parse error before `segment'
+x86emu/x86emu/decode.h:66: warning: type defaults to `int' in declaration of `fetch_data_word_abs'
+x86emu/x86emu/decode.h:66: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:66: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:67: parse error before `fetch_data_long'
+x86emu/x86emu/decode.h:67: parse error before `offset'
+x86emu/x86emu/decode.h:67: warning: type defaults to `int' in declaration of `fetch_data_long'
+x86emu/x86emu/decode.h:67: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:67: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:68: parse error before `fetch_data_long_abs'
+x86emu/x86emu/decode.h:68: parse error before `segment'
+x86emu/x86emu/decode.h:68: warning: type defaults to `int' in declaration of `fetch_data_long_abs'
+x86emu/x86emu/decode.h:68: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:68: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:69: parse error before `offset'
+x86emu/x86emu/decode.h:69: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:70: parse error before `segment'
+x86emu/x86emu/decode.h:70: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:71: parse error before `offset'
+x86emu/x86emu/decode.h:71: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:72: parse error before `segment'
+x86emu/x86emu/decode.h:72: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:73: parse error before `offset'
+x86emu/x86emu/decode.h:73: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:74: parse error before `segment'
+x86emu/x86emu/decode.h:74: warning: function declaration isn't a prototype
+x86emu/x86emu/decode.h:75: parse error before `*'
+x86emu/x86emu/decode.h:75: warning: type defaults to `int' in declaration of `decode_rm_byte_register'
+x86emu/x86emu/decode.h:75: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:76: parse error before `*'
+x86emu/x86emu/decode.h:76: warning: type defaults to `int' in declaration of `decode_rm_word_register'
+x86emu/x86emu/decode.h:76: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:77: parse error before `*'
+x86emu/x86emu/decode.h:77: warning: type defaults to `int' in declaration of `decode_rm_long_register'
+x86emu/x86emu/decode.h:77: warning: data definition has no type or storage class
+x86emu/x86emu/decode.h:78: parse error before `*'
+x86emu/x86emu/decode.h:78: warning: type defaults to `int' in declaration of `decode_rm_seg_register'
+x86emu/x86emu/decode.h:78: warning: data definition has no type or storage class
+In file included from /usr/include/linux/types.h:5,
+                 from /usr/include/linux/capability.h:12,
+                 from /usr/include/linux/binfmts.h:5,
+                 from /usr/include/linux/sched.h:8,
+                 from freebiosvga.c:48:
+/usr/include/asm/types.h:54: `u16' redeclared as different kind of symbol
+x86emu/x86emu.h:114: previous declaration of `u16'
+/usr/include/asm/types.h:57: `u32' redeclared as different kind of symbol
+x86emu/x86emu.h:115: previous declaration of `u32'
+freebiosvga.c:133: parse error before `*'
+freebiosvga.c:134: warning: function declaration isn't a prototype
+freebiosvga.c: In function `mem_read':
+freebiosvga.c:137: `addr' undeclared (first use in this function)
+freebiosvga.c:137: (Each undeclared identifier is reported only once
+freebiosvga.c:137: for each function it appears in.)
+freebiosvga.c:138: `size' undeclared (first use in this function)
+freebiosvga.c:140: warning: unreachable code at beginning of switch statement
+freebiosvga.c:161: `m' undeclared (first use in this function)
+freebiosvga.c:169: warning: unreachable code at beginning of switch statement
+freebiosvga.c:195: warning: unsigned int format, different type arg (arg 4)
+freebiosvga.c: At top level:
+freebiosvga.c:202: parse error before `*'
+freebiosvga.c:204: warning: function declaration isn't a prototype
+freebiosvga.c: In function `mem_write':
+freebiosvga.c:206: `addr' undeclared (first use in this function)
+freebiosvga.c:206: `size' undeclared (first use in this function)
+freebiosvga.c:206: `val' undeclared (first use in this function)
+freebiosvga.c:214: warning: unreachable code at beginning of switch statement
+freebiosvga.c:235: `m' undeclared (first use in this function)
+freebiosvga.c:242: warning: unreachable code at beginning of switch statement
+freebiosvga.c: At top level:
+freebiosvga.c:272: warning: function declaration isn't a prototype
+freebiosvga.c: In function `sys_inb':
+freebiosvga.c:318: warning: unsigned int format, different type arg (arg 3)
+freebiosvga.c: In function `sys_inw':
+freebiosvga.c:330: warning: unsigned int format, different type arg (arg 3)
+freebiosvga.c: In function `sys_inl':
+freebiosvga.c:342: warning: unsigned int format, different type arg (arg 3)
+freebiosvga.c: At top level:
+freebiosvga.c:374: parse error before `_X86EMU_env'
+freebiosvga.c:374: warning: type defaults to `int' in declaration of `_X86EMU_env'
+freebiosvga.c:374: warning: data definition has no type or storage class
+freebiosvga.c: In function `vgabios_init':
+freebiosvga.c:427: request for member `mem_base' in something not a structure or union
+freebiosvga.c:428: request for member `mem_base' in something not a structure or union
+freebiosvga.c:432: request for member `mem_size' in something not a structure or union
+freebiosvga.c:449: warning: implicit declaration of function `x86_bios_init'
+freebiosvga.c:449: request for member `mem_base' in something not a structure or union
+freebiosvga.c:450: request for member `x86' in something not a structure or union
+freebiosvga.c:451: request for member `x86' in something not a structure or union
+freebiosvga.c:452: request for member `x86' in something not a structure or union
+freebiosvga.c:452: request for member `mem_size' in something not a structure or union
+freebiosvga.c:453: request for member `x86' in something not a structure or union
+freebiosvga.c:453: request for member `mem_size' in something not a structure or union
+freebiosvga.c:456: warning: implicit declaration of function `x86_exec'
+freebiosvga.c:462: request for member `mem_base' in something not a structure or union
+freebiosvga.c:463: request for member `mem_base' in something not a structure or union
+freebiosvga.c:473: request for member `mem_base' in something not a structure or union
+freebiosvga.c:475: request for member `mem_base' in something not a structure or union
+freebiosvga.c:476: request for member `mem_base' in something not a structure or union
+freebiosvga.c:478: request for member `x86' in something not a structure or union
+freebiosvga.c:479: request for member `x86' in something not a structure or union
+freebiosvga.c:480: request for member `x86' in something not a structure or union
+freebiosvga.c:481: request for member `x86' in something not a structure or union
+freebiosvga.c:482: request for member `x86' in something not a structure or union
+freebiosvga.c:482: request for member `mem_size' in something not a structure or union
+freebiosvga.c:483: request for member `x86' in something not a structure or union
+freebiosvga.c:483: request for member `mem_size' in something not a structure or union
+make: *** [freebiosvga.o] Error 1

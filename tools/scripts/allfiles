@@ -1,0 +1,62 @@
+#!/bin/bash
+
+LOC=kernel/`uname -r`
+KSRC=/usr/src/linux/
+
+rm -rf $LOC
+
+mkdir -p $LOC/arch/alpha/boot/tools
+mkdir -p $LOC/arch/alpha/kernel
+mkdir -p $LOC/arch/alpha/lib
+
+mkdir -p $LOC/drivers/block
+mkdir -p $LOC/drivers/cdrom
+mkdir -p $LOC/drivers/pci
+mkdir -p $LOC/drivers/scsi
+
+mkdir -p $LOC/kernel
+mkdir -p $LOC/lib
+
+for files in \
+	arch/alpha/boot/tools/objstrip	\
+	arch/alpha/boot/tools/objstrip.c	\
+	arch/alpha/kernel/bios32.o	\
+	arch/alpha/kernel/irq.o		\
+	arch/alpha/kernel/smc37c669.o	\
+	arch/alpha/kernel/smc37c93x.o	\
+\
+	arch/alpha/kernel/core_apecs.o	\
+	arch/alpha/kernel/core_cia.o	\
+	arch/alpha/kernel/core_lca.o	\
+	arch/alpha/kernel/core_pyxis.o	\
+\
+	arch/alpha/kernel/sys_alcor.o	\
+	arch/alpha/kernel/sys_cabriolet.o \
+	arch/alpha/kernel/sys_eb64p.o	\
+	arch/alpha/kernel/sys_miata.o	\
+	arch/alpha/kernel/sys_mikasa.o	\
+	arch/alpha/kernel/sys_ruffian.o	\
+	arch/alpha/kernel/sys_sio.o	\
+	arch/alpha/kernel/sys_sx164.o	\
+	arch/alpha/kernel/sys_takara.o	\
+\
+	drivers/block/block.a	\
+	drivers/cdrom/cdrom.a	\
+	drivers/cdrom/cdrom.a	\
+	drivers/pci/pci.o	\
+	drivers/pci/compat.o	\
+	drivers/pci/oldproc.o	\
+	drivers/scsi/scsi.a	\
+\
+	kernel/resource.o	\
+	kernel/softirq.o	\
+\
+	lib/lib.a		\
+	arch/alpha/lib/lib.a	\
+	.config
+do
+	echo -n "Copying $files.."
+	cp -a $KSRC/$files $LOC/$files
+	echo "done."
+done
+

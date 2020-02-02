@@ -1,0 +1,162 @@
+--- osf.h.nowtint	Sun Apr 18 01:39:28 1999
++++ osf.h	Sun Apr 18 01:40:37 1999
+@@ -460,6 +460,7 @@
+ **	rdusp		     003A
+ **	whami		     003C
+ **	retsys		     003D
++**	wtint		     003E
+ **	rti		     003F
+ */
+ 
+@@ -486,5 +487,6 @@
+ #define PAL_RDUSP_ENTRY	    0x003A
+ #define PAL_WHAMI_ENTRY	    0x003C
+ #define PAL_RETSYS_ENTRY    0x003D
++#define PAL_WTINT_ENTRY     0x003E
+ #define PAL_RTI_ENTRY	    0x003F
+ 
+--- osfpal.S.nowtint	Sat Apr 17 22:32:53 1999
++++ osfpal.S	Sun Apr 18 01:38:38 1999
+@@ -1233,9 +1233,11 @@
+ **	rdps		 2D80	Read processor status
+ **	wrkgp		 2DC0	Write kernel global pointer
+ **	wrusp		 2E00	Write user stack pointer
++**	wrperfmon	 2E40	Write performance monitoring register (n/a)
+ **	rdusp		 2E80	Read user stack pointer
+ **	whami		 2F00	Who am I
+ **	retsys		 2F40	Return from system call
++**	wtint		 2F80	Wait for interrupt
+ **	rti		 2FC0	Return from trap, fault, or interrupt
+ */
+ 
+@@ -2374,11 +2376,48 @@
+ 	mtpr	t8, hier		// set the hardware
+ 	br	zero, pal_retsys_cont
+ 
+-	CALL_PAL_PRIV(0x003E)
++/*
++**
++** FUNCTIONAL DESCRIPTION:
++**
++**	Wait for interrupt (shamelessly stolen from SRM palcode by means
++**	of reverse engineering).
++**
++** CALLING SEQUENCE:
++**
++**	Vectored into via hardware-activated dispatch by the CALL_PAL
++**	instruction.
++**
++** INPUT PARAMETERS:
++** 
++**	a0 - number of clock ticks to skip (ignored)
++**
++** OUTPUT PARAMETERS:
++**
++**	v0 - number of clock ticks ignored (always 0)
++**
++** SIDE EFFECTS:
++**
++**	Flushes D-cache.
++**
++*/
++	CALL_PAL_PRIV(PAL_WTINT_ENTRY)
+ 
+-pal_opcdec3E:
++pal_wtint:
++	mtpr	t0, pt0			// Save t0.
++	mfpr	t0, ptImpure
++	mtpr	t1, pt1			// Save t1.
++	mtpr	t3, pt3			// Save t3.
++	ldq_p	t1, CNS_Q_BASE + CNS_Q_ABOX_CTL(t0)
++	lda	t3, ABOX_M_DC_ENA(zero)
++	bic	t1, t3, t1		// Disable D-cache
++	stq_p	t1, CNS_Q_BASE + CNS_Q_ABOX_CTL(t0)
++	mtpr	t1, aboxCtl		// Update ABOX
+ 	STALL
+-	br	zero, pal_CallPalRsvd
++	STALL
++	STALL
++	br	pal_wtint_cont
++
+ 
+ /*
+ **
+@@ -4749,6 +4788,78 @@
+ 	mtpr	t9, excAddr		// set return address
+ 	mfpr	sp, ptUsp		// get users stack
+         rc      t11                     // clear inter_flag
++	hw_rei
++
++	ALIGN_CACHE_BLOCK
++
++pal_wtint_cont:
++
++	lda	t3, 0x18(zero)
++	sll	t3, 28, t3
++	lda	t3, 0xb00(t3)		// 0x180000B00
++	lda	t1, 0x137(zero)
++	stl_p	t1, 0(t3)
++	mb
++	lda	t1, 512(zero)
++1:
++	subq	t1, 1, t1
++	cmple	t1, zero, t3
++	beq	t3, 1b
++
++	lda	t1, -1(zero)
++	zap	t1, 0xfc, t1
++	sll	t1, 4, t1
++	lda	t3, 0x1001(zero)
++	sll	t3, 20, t3
++	or	t1, t3, t3		// 0x1001FFFF0
++	lda	t1, 128(zero)
++	br	2f
++
++	ALIGN_CACHE_BLOCK
++2:
++	br	3f
++22:
++	stl_p	t1, 0(t3)
++	mb
++	br	4f
++
++	ALIGN_CACHE_BLOCK
++3:
++	br	6f
++4:
++	lda	t1, 561(zero)
++5:
++	subq	t1, 1, t1
++	cmple	t1, zero, t3
++	beq	t3, 5b
++	br	7f
++
++	ALIGN_CACHE_BLOCK
++6:
++	br	8f
++7:
++	mfpr	t3, hirr
++	STALL
++	and	t3, HIRR_M_HWR, t3	// Any interrupts yet?
++	beq	t3, 7b
++	br	9f
++
++	ALIGN_CACHE_BLOCK
++8:
++	br	22b
++9:
++	ldq_p	t1, CNS_Q_BASE + CNS_Q_ABOX_CTL(t0)
++	lda	t3, ABOX_M_DC_ENA(zero)
++	bis	t1, t3, t1		// Enable D-cache
++	stq_p	t1, CNS_Q_BASE + CNS_Q_ABOX_CTL(t0)
++	mtpr	t1, aboxCtl		// Update ABOX
++	STALL
++	STALL
++	STALL
++	mfpr	t0, pt0			// Restore t0.
++	mfpr	t1, pt1			// Restore t1.
++	mfpr	t3, pt3			// Restore t3.
++	bis	zero, zero, v0		// Return value: 0
+ 	hw_rei
+ 
+ 	ALIGN_CACHE_BLOCK
